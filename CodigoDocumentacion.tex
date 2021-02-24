@@ -1,0 +1,440 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Documentación: Métodos numéricos raíces reales}
+\author{D. R. Ramírez, C. Castrillón, J. M. Torres}
+\date{Febrero de 2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{float}
+
+\begin{document}
+
+\maketitle
+
+\section{Introducción}
+El método de la Posición Falsa (también llamado método \emph{Regula Falsi}) es un método numérico que permite aproximar raíces reales de funciones matemáticas continuas en un intervalo cerrado. La solución aproximada depende de la tolerancia que se proporcione como criterio de parada o, en su defecto, un número máximo de iteraciones definido por el usuario del método. A continuación se revelará detalladamente las condiciones necesarias para poder hacer uso del método; la demostración geométrica y algebráica del algoritmo construido; y las comparaciones con otros métodos numéricos que cumplen la misma función. Los resultados expuestos en este documento han sido obtenidos mediante la implementación del algoritmo en el lenguaje de programación Python, con la ayuda de módulos externos como NumPy.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm]{PythonSvg}
+    \caption{Logo de Python}
+    \label{fig:PythonSvg}
+\end{figure}
+\section{Método de la posición falsa (Regula Falsi)}
+\subsection{Condiciones para aplicar el método}
+Las condiciones que se deben cumplir para utilizar el método a cabalidad son las siguientes:
+
+\begin{itemize}
+    \item Debe haber un intervalo cerrado en el cual evaluar la función (dentro del que se va a desarrollar la búsqueda de raíces).
+    \item Las imágenes correspondientes a los valores extremos de dicho intervalo deben ser de distinto signo: uno negativo; uno positivo. Esto con el fin de garantizar que, efectivamente, existe al menos una raíz en el intervalo.
+    \item Debe existir al menos una de dos condiciones de parada: una tolerancia dada, o una cantidad máxima de iteraciones a ejecutar, en caso de que la anterior no se cumpla.
+\end{itemize}
+
+\subsection{Explicación geométrica del algoritmo}
+Dadas las condiciones mencionadas con anterioridad, el método se describe de la siguiente manera: la recta que inicia en \emph{a} y termina en \emph{b}; y pasa por el punto \emph{c} (intersecto con el eje \emph{x}), se aproxima a la función (f(\emph{x})) dada. En consecuencia al cambio de tramo —i.e. cambio en el valor de uno de los extremos del intervalo en que se está evaluando la función— que se hace tras cada iteración del algoritmo, la recta cambia su longitud y, de mayor importancia, su pendiente. Por consiguiente, tal punto de intersección (\emph{c}) varía, y su proximidad a la raíz de la función presente en el intervalo, incrementa. Para ilustrar lo que está sucediendo, se observa que la recta se desplaza hasta que el punto \emph{c} se acerca tanto como sea posible (teniendo en cuenta la tolerancia dada) a la solución. El valor de \emph{c} se obtiene mediante despeje al hallar la equivalencia por semejanza de triángulos entre la sección positiva de la recta, y la sección negativa de la misma.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm]{regula_falsi}
+    \caption{Primera captura Regula Falsi}
+    \label{fig:regula_falsi}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm]{regula_falsi2}
+    \caption{Segunda captura Regula Falsi}
+    \label{fig:regula_falsi2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm]{regula_falsi3}
+    \caption{Tercera captura Regula Falsi}
+    \label{fig:regula_falsi3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm]{regula_falsi4}
+    \caption{Cuarta captura Regula Falsi}
+    \label{fig:regula_falsi4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm]{regula_falsi5}
+    \caption{Quinta captura Regula Falsi}
+    \label{fig:regula_falsi5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm]{regula_falsi6}
+    \caption{Sexta captura Regula Falsi}
+    \label{fig:regula_falsi6}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm]{regula_falsi7}
+    \caption{Séptima captura Regula Falsi}
+    \label{fig:regula_falsi7}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm]{regula_falsi8}
+    \caption{Octava captura Regula Falsi}
+    \label{fig:regula_falsi8}
+\end{figure}
+
+
+\subsection{Diagrama de flujo}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{DiagramaFlujo.png}
+    \caption{Diagrama de flujo del algoritmo}
+    \label{fig:DiagramaFlujo}
+\end{figure}
+
+\subsection{Resultados}
+Los resultados obtenidos dependieron en parte de la tolerancia aplicada. Todas las tolerancias utilizadas en el programa de Python fueron 1E-8, 1E-16, 1E-32 y 1E-56. Los resultados obtenidos con cada una de las tolerancias pueden observarse en la salida del programa. 
+A continuación se muestra la tabla de resultados obtenida para una tolerancia de 1E-8.
+
+\begin{itemize}
+    \item Para la función \(f(x) = cos^2(x)-x^2\)
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm]{TablaFun1.png}
+        \caption{Tabla de resultados para la primera función}
+        \label{fig:TablaFun1}
+        \end{figure}
+    \item Para la función \(f(x) = xsen(x)-1\)
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm]{TablaFun2.png}
+        \caption{Tabla de resultados para la segunda función}
+        \label{fig:TablaFun2}
+        \end{figure}
+    \item Para la función \(f(x) = x^3-2x^2+\frac{4}{3}x-\frac{8}{27}\)
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm]{TablaFun3.png}
+        \caption{Tabla de resultados para la tercera función}
+        \label{fig:TablaFun3}
+        \end{figure}
+    \item Para el problema del paracaidista, correspondiente a la función  \(f(x) = (9.8*\frac{68.1}{x}*(1-e^\frac{-x}{(68.1*10)}))-40\)
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm]{TablaFun5.png}
+        \caption{Tabla de resultados para la cuarta función}
+        \label{fig:TablaFun5}
+        \end{figure}
+    \item Para la ecuación histórica, \(f(x) = x^3-2x-5\)
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm]{TablaFun4.png}
+        \caption{Tabla de resultados para la quinta función}
+        \label{fig:TablaFun4}
+        \end{figure}
+\end{itemize}
+Nótese que para la tercera función, el resultado está lejos de ser una aproximación válida como respuesta. En esta función, la raíz es un número periódico, y en este caso, el método sigue iterando de forma indefinida y nunca se detiene. Para manejar esta última excepción, se colocó un límite de iteraciones correspondiente al número máximo de iteraciones del método de la bisección, como fue recomendado. En la siguente imagen, que muestra la salida del programa elaborado en Python, se puede apreciar como se aproxima cada vez más a la raíz esperada de la tercera función.
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm]{SalidaFuncC.png}
+\caption{Comportamiento del método para la tercera función}
+\label{fig:SalidaFuncC}
+\end{figure}
+
+\subsubsection{Comportamiento del método}
+\begin{enumerate}
+\item Para la función \(f(x) = cos^2(x)-x^2\) el algoritmo se comportó de la siguiente manera:
+    \begin{itemize}
+        \item \textbf{Pérdida de significancia:}
+        La pérdida de significancia se vería reflejada esencialmente en el número de posiciones decimales que el lenguaje de programación y el intérprete pueden soportar, pues a medida de que se realizan operaciones aritméticas y se obtienen más de los decimales permitidos, se va perdiendo precisión. Aunque, esto último no es un verdadero problema en la pérdida de significancia, pues Python tiene capcacidad de almacenar 28 posiciones decimales. En caso de que esto llegase a presentar un problema para otras funciones con las que se trabaje, se podría optar por usar el tipo "decimal" de Python.
+        \item \textbf{Número de iteraciones:}
+        El método necesitó de 14 iteraciones para poder llegar a una aproximación óptima. El rendimiento del método en cuanto al número de iteraciones que tiene que hacer para poder llegar a la solución aproximada depende plenamente de la tolerancia escogida. Se puede notar que entre 2 de las tolerancias más pequeñas (1E-32 y 1E-56), no se nota realmente un cambio en cuanto al número de iteraciones. 
+        \item \textbf{Convergencia:}
+        Para esta función, el algoritmo garantiza la convergencia. Sin embargo, la aproximación obtenida en la segunda iteración no es muy coherente con las obtenidas en el resto de iteraciones. Si se observa detenidamente, esta segunda aproximación implica una disminución drástica respecto al rango de valores que se llevaba hasta el momento y con las aproximaciones posteriores. La ultima iteración resulta en una aproximación precisa que equivale a 0.7390851343
+    \end{itemize}
+    \item Para la función \(f(x) = xsen(x)-1\) el algoritmo se comportó de la siguiente manera:
+    \begin{itemize}
+        \item \textbf{Pérdida de significancia:}
+        Como en el caso de la primera función, la perdida de significancia se vería reflejada esencialmente en el número de posiciones decimales que el lenguaje de programación y el interprete pueden soportar.
+        \item \textbf{Número de iteraciones:}
+        El método necesitó de 6 iteraciones para poder llegar a una aproximación óptima. El numero de iteraciones con tolerancia 1E-32 y 1E-56 es exactamente el mismo. Adicionalmente, el hecho de que esta función sea periódica no implica realmente ningún cambio en cuanto al número de iteraciones, se puede observar que con esta función se toma incluso menos iteraciones para llegar a la solución que en cualquiera de los otros dos casos presentes.
+        \item \textbf{Convergencia:}
+        Para esta función se logra la convergencia. Los valores se van acercando unos a otros cada vez más con una amplitud más reducida hasta que se llega al valor deseado. Las aproximaciones en cada iteración tienen coherencia con base en el resultado que se quiere obtener al final. La ultima iteración resulta en una aproximación precisa que equivale a 1.1141571409
+    \end{itemize}
+    \item Para la función \(f(x) = x^3-2x^2+\frac{4}{3}x-\frac{8}{27}\) el algoritmo se comportó de la siguiente manera:
+    \begin{itemize}
+        \item \textbf{Pérdida de significancia:}
+        La pérdida de significancia se vería reflejada esencialmente en el número de posiciones decimales que el lenguaje de programación y el interprete pueden soportar.
+        \item \textbf{Número de iteraciones:}
+        En este último caso, se tuvo que recurrir a la inclusión de una condición adicional en la sentencia que evalúa la tolerancia (i.e. la condición de parada). El resultado, en este caso, también es un número real, pero corresponde a un número periódico, lo que no sucedía con las funciones anteriores. Como el número que se debe obtener al final es periódico, el método de la posición falsa, sin la condición adicional que limita el numero de iteraciones, sigue tratando de aproximar la solución hasta que se llega a 0,6 (periódico), sin dejar de iterar. Para manejar esta exepeción, se buscó el numero máximo de iteraciones para dar con la solución mediante el método de la bisección, y se puso ese valor como límite de iteración. Este último valor corresponde a 56 iteraciones. 
+        \item \textbf{Convergencia:}
+        Para esta función definitivamente hay convergencia, después de cierto número de iteraciones, el resultado aproximado se estabiliza, pero no deja de iterar a no ser que se incluyan condiciones adicionales.
+    \end{itemize}
+    \item Para el problema del paracaidista, cuya función puede ser descrita como \(v(c) = 0 = 9.8* \frac{68.1}{c}*(1-e^-(\frac{c}{68.1})*10)\), el algoritmo se comportó de la siguiente manera:
+    \begin{itemize}
+        \item \textbf{Pérdida de significancia:}
+        La pérdida de significancia se vería reflejada esencialmente en el número de posiciones decimales que el lenguaje de programación y el intérprete pueden soportar
+        \item \textbf{Número de iteraciones:}
+        El número de iteraciones máximo, correspondiente a los casos cuyo error relativo es 1E*-8, 1E*-16, 1E*-32, y 1E*-56, es igual a 19.
+        \item \textbf{Convergencia:}
+        Para esta función, definitivamente hay convergencia, despues de cierto número de iteraciones el resultado aproximado se estabiliza y se aproxima a 14.7802038317.
+    \end{itemize}
+    \item Para la función \(f(x) = x^3-2x-5 \) el algoritmo se comportó de la siguiente manera:
+    \begin{itemize}
+        \item \textbf{Pérdida de significancia:}
+        Como en el caso del paracaidista, la pérdida de significancia se vería reflejada esencialmente en el número de posiciones decimales que el lenguaje de programación puede soportar.
+        \item \textbf{Número de iteraciones:}
+        El método necesitó de 24 iteraciones para poder llegar a una aproximación óptima.
+        \item \textbf{Convergencia:}
+        Para esta última función, definitivamente hay convergencia, despues de cierto número de iteraciones el resultado aproximado se estabiliza y se aproxima a 2.094551479.
+    \end{itemize}
+\end{enumerate}
+\subsubsection{Observaciones del método cuando la función tiene dos raices}
+Si la función llega a tener más de 1 raíz, el método encuentra la solución acotada entre el intervalo; y si llega a existir más de 1 raíz dentro del intervalo, el método de la posición falsa retornará la raíz más próxima al punto de intersección (con el eje horizontal) inicial.
+\subsubsection{Observaciones del método cuando la función es periódica, par o impar}
+Si la función es periódica y el intervalo utilizado en el algoritmo abarca más de 1 solución, entonces se retornará la primera solución que se encuentre, independientemente de que las funciones periódicas suelan tener infinitas soluciones en todo su dominio. Adicionalmente, para la función periódica con la que se trabajó, es importante mencionar que fue la que menos iteraciones tomó para llegar a la aproximación óptima. Por otro lado, si la función es par, la observación sería que para que se pueda escojer un intervalo válido para el método, el rango de la función debe albergar tanto valores negativos como positivos.
+
+\subsubsection{Gráficas de relación entre Ei+1 y Ei}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{E1-1 PosFalsa.png}
+    \caption{Gráfica que relaciona Ei+1 con Ei para la primera función}
+    \label{fig:E1-1 PosFalsa}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{E1-2 PosFalsa.png}
+    \caption{Gráfica que relaciona Ei+1 con Ei para la segunda función}
+    \label{fig:E1-2 PosFalsa}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{Imagen 1.png}
+    \caption{Gráfica que relaciona Ei+1 con Ei para la tercera función}
+    \label{fig:E1-2 PosFalsa}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{E1-3 PosFalsa.png}
+    \caption{Gráfica que relaciona Ei+1 con Ei para la cuarta función}
+    \label{fig:E1-3 PosFalsa}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{E1-4 PosFalsa.png}
+    \caption{Gráfica que relaciona Ei+1 con Ei para la quinta función}
+    \label{fig:E1-4 PosFalsa}
+\end{figure}
+
+\subsection{Gráfica para visualizar el comportamiento del método}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{ComportamientoPosFalsa.png}
+    \caption{Gráfica error-iteración que revela el comportamiento del método por cada función}
+    \label{fig:ComportamientoPosFalsa}
+\end{figure}
+
+A partir de la Figura 22, se puede concluir que el método fue más eficiente con la segunda función (\(f(x) = xsen(x)-1\)) a comparación del resto de funciones analizadas. Por otro lado, la aproximación de la raíz de la última función (\(v(c) = 0 = 9.8* \frac{68.1}{c}*(1-e^-(\frac{c}{68.1})*10\)), es la que mayor cantidad de iteraciones toma en estimar.
+
+
+\subsection{Comparación con método de la bisección}
+El método de la bisección arroja los siguientes resultados para la función \(f(x) = x^3-x^2+\frac{4}{3}x-\frac{8}{27}\):
+\textbf{Número de iteraciones:} 56 iteraciones
+\textbf{Aproximación final:} 0.6666717529296875
+A diferencia del método de la posición falsa, el método de la bisección, en este caso, no necesita de una cota superior explícita para la cantidad de iteraciones que debe desarrollar, su parámetro de parada, en cambio, es el error permitido para el ejercicio (en este caso igual a 1E-56). Se concluye, entonces, que el método de la bisección, debido precisamente al hecho de converger a la solución aproximada, es más eficiente que el método de la Posición Falsa.
+
+\subsection{Comparación con método de Taylor}
+El método de Taylor no es un método numérico para encontrar raíces de una función, y aunque puede ser utilizado para aproximar el valor correspondiente para el que la función se hace igual a cero (i.e. la raíz), la comparación con los métodos de búsqueda de raíces resulta poco relevante dada su distinta naturaleza.
+
+\section{Método de delta cuadrado de Aitken}
+\subsection{Condiciones para aplicar el método}
+El Proceso de Delta Cuadrado de Aitken es un método numérico cuyo objetivo es acelerar la convergencia de una sucesión de convergencia lineal. En concordancia con el alcance y el objetivo de este documento, se estudiará en particular si se puede aplicar el proceso al método de Posición Falsa y, de ser así, cómo aplicarlo.
+\subsection{Diagrama de flujo}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6.25cm]{DF_Aitken (2).png}
+    \caption{Diagrama de flujo del algoritmo}
+    \label{fig:DiagramaFlujoAitken}
+\end{figure}
+\subsection{Resultados}
+Los resultados que se han obtenido dan cuenta de la mejora que este proceso de aceleración brinda para métodos numéricos de convergencia lineal. A continuación se muestra las tablas de aproximaciones y errores para cada iteración, en cada una de las funciones expuestas con anterioridad.
+\begin{itemize}
+	\item Para la función \(f(x) = cos^2(x)-x^2\)
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm]{PrimeraFunAitk.png}
+        \caption{Tabla de resultados para la primera función}
+        \label{fig:TablaFun1Aitk}
+        \end{figure}
+    \item Para la función \(f(x) = xsen(x)-1\)
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm]{SegundaFunAitk.png}
+        \caption{Tabla de resultados para la segunda función}
+        \label{fig:TablaFun2Aitk}
+        \end{figure}
+    \item Para la función \(f(x) = x^3-2x^2+\frac{4}{3}x-\frac{8}{27}\)
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm]{TerceraFunAitk.png}
+        \caption{Tabla de resultados para la tercera función}
+        \label{fig:TablaFun3Aitk}
+        \end{figure}
+    \item Para el problema del paracaidista, correspondiente a la función 
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm]{CuartaFunAitk.png}
+        \caption{Tabla de resultados para la cuarta función}
+        \label{fig:TablaFun5Aitk}
+        \end{figure}
+    \item Para la ecuación historica  
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=12cm]{QuintaFunAitk.png}
+        \caption{Tabla de resultados para la quinta función}
+        \label{fig:TablaFun4Aitk}
+        \end{figure}
+\end{itemize}        
+\subsubsection{Comportamiento del método}
+\begin{enumerate}
+    \item Para la función \(f(x) = cos^2(x)-x^2\) el algoritmo se comportó de la siguiente manera:
+    \begin{itemize}
+        \item \textbf{Pérdida de significancia:}
+        La pérdida de significancia se vería reflejada esencialmente en el número de posiciones decimales que el lenguaje de programación y el intérprete pueden soportar, pues a medida de que se realizan operaciones aritméticas y se obtienen más de los decimales permitidos, se va perdiendo precisión. Aunque, esto último no es un verdadero problema en la pérdida de significancia, pues Python tiene capcacidad de almacenar 28 posiciones decimales. En caso de que esto llegase a presentar un problema para otras funciones con las que se trabaje, se podría optar por usar el tipo "decimal" de Python.
+        \item \textbf{Número de iteraciones:}
+        El método necesitó de 4 iteraciones  para poder llegar a una aproximación óptima.  El rendimiento del método depende  plenamente del punto de partida que se escoja, más aún que la tolerancia escogida.  Al escoger un punto de partida mas alejado, gasta mas iteraciones para llegar al resultado. 
+        \item \textbf{Convergencia:}
+        Para  esta  funcion, el algoritmo garantiza la  convergencia. Sin embargo, al emplear la fórmula del método en la quinta iteración, el denominador tiende a 0 y este deja de funcionar.
+    \end{itemize}
+    \item Para la función \(f(x) = xsen(x)-1\) el algoritmo se comportó de la siguiente manera:
+    \begin{itemize}
+        \item \textbf{Pérdida de significancia:}
+        Como en el caso de la primera funcion, la perdida  de significancia se vería reflejada esencialmente  en el número de posiciones decimales  que el lenguaje  de programación y el intérprete  pueden  soportar.
+        \item \textbf{Número de iteraciones:}
+        El método gasta 4 iteraciones con una tolerancia de 1E-8, y una más para 1E-16, ya que en la última iteración el error es 0 .
+        \item \textbf{Convergencia:}
+        Para esta función, las aproximaciones en cada iteración tienen coherencia con base en el resultado que se quiere obtener y al final la diferencia entre el último resultado y el inmediatamente anterior es 0. 
+    \end{itemize}
+    \item Para la función \(f(x) = x^3-2x^2+\frac{4}{3}x-\frac{8}{27}\) el algoritmo se comportó de la siguiente manera:
+    \begin{itemize}
+        \item \textbf{Pérdida de significancia:}
+        La pérdida de significancia se vería reflejada esencialmente en el número de posiciones decimales que el lenguaje de programación y el interprete pueden soportar.
+        \item \textbf{Número de iteraciones:}
+        Para este caso, el número de iteraciones fue 17 y no continuó debido a que el denominador del metodo tendía a 0. Por otro lado, la aproximación no es tan precisa (da 0,6679...). Comparándola con el resultado ideal, está alejada.
+        \item \textbf{Convergencia:}
+        Hay  convergencia aunque al final el metodo deja de funcionar.
+    \end{itemize}
+    \item Para el problema del paracaidista, cuya función puede ser descrita como \(v(c) = 0 = 9.8* \frac{68.1}{c}*(1-e^-(\frac{c}{68.1})*10)\), el algoritmo se comportó de la siguiente manera:
+    \begin{itemize}
+        \item \textbf{Pérdida de significancia:}
+        La pérdida de significancia se vería reflejada esencialmente en el número de posiciones decimales que el lenguaje de programación y el intérprete pueden soportar
+        \item \textbf{Número de iteraciones:}
+        El número de iteraciones máximo, correspondiente a los casos cuyo error relativo es 1E*-8, 1E*-16, 1E*-32, y 1E*-56, es igual a 19.
+        \item \textbf{Convergencia:}
+        Para  esta última función definitivamente hay con- vergencia, y su resultado  aproximado es 14.780208593679466.
+    \end{itemize}
+    \item Para la función \(f(x) = x^3-2x-5 \) el algoritmo se comportó de la siguiente manera:
+    \begin{itemize}
+        \item \textbf{Pérdida de significancia:}
+        Como en los demás casos, la pérdida de significancia se vería reflejada esencialmente en el número de posiciones decimales que el lenguaje de programación puede soportar.
+        \item \textbf{Número de iteraciones:}
+        El método gasta 6 iteraciones con una tolerancia de 1E-8, y una más para 1E-16, ya que en la última iteración el error es igual a 0.
+        \item \textbf{Convergencia:}
+        Para esta función, la aproximación en cada iteración tiene  coherencia, teniendo en cuenta el resultado que se quiere obtener, y, al final, la diferencia entre el último resultado y el inmediatamente anterior es 0.
+    \end{itemize}
+\end{enumerate}
+\subsubsection{Observaciones del método cuando la función tiene dos raices}
+Si  la función tiene dos raíces, el método presenta aquella cuyo resultado es positivo.
+\subsubsection{Observaciones del método cuando la función es periodica, par o impar}
+Si la función es periódica, y el término de partida utilizado en el algoritmo es el ideal, funciona bien, dando resultados muy aproximados, pero para uno de los casos el denominador tiende a 0 y el método ya no funciona.
+
+\subsubsection{Gráficas de relación entre Ei+1 y Ei}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{E2-1 Aitken.png}
+    \caption{Gráfica que relaciona Ei+1 con Ei para la primera función}
+    \label{fig:E2-1 Aitken}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{E2-2 Aitken.png}
+    \caption{Gráfica que relaciona Ei+1 con Ei para la segunda función}
+    \label{fig:E2-2 Aitken}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{E2-4 Aitken.png}
+    \caption{Gráfica que relaciona Ei+1 con Ei para la cuarta función}
+    \label{fig:E2-4 Aitken}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{E2-3 Aitken.png}
+    \caption{Gráfica que relaciona Ei+1 con Ei para la quinta función}
+    \label{fig:E2-3 Aitken}
+\end{figure}
+
+\subsection{Gráfica para visualizar el comportamiento del método}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{ComportamientoAitken.png}
+    \caption{Gráfica error-iteración que revela el comportamiento del método por cada función}
+    \label{fig:ComportamientoAitken}
+\end{figure}
+
+Como se puede observar en la Figura 28, el metodo fue más eficiente con la función \(v(c) = 0 = 9.8* \frac{68.1}{c}*(1-e^-(\frac{c}{68.1})*10\) y menos eficiente con la función \(f(x) = x^3-2x^2+\frac{4}{3}x-\frac{8}{27}\).
+
+\subsection{Comparación con método de la bisección}
+El método de la bisección arroja los siguientes resultados para la función \(f(x) = x^3-x^2+\frac{4}{3}x-\frac{8}{27}\):
+\textbf{Número de iteraciones:} 56 iteraciones
+\textbf{Aproximación final:} 0.6666717529296875
+En comparación con el método de la bisección, el método de delta cuadrado de Aitken, en este caso, es mucho más eficiente, pues toma menos de un tercio del tiempo en llegar a una aproximación aceptable (con un error de 3.01E-4).
+\subsection{Comparación con método de Taylor}
+El método de Taylor no es un método numérico para encontrar raíces de una función, y aunque puede ser utilizado para aproximar el valor correspondiente para el que la función se hace igual a cero (i.e. la raíz), la comparación con los métodos de búsqueda de raíces resulta poco relevante dada su distinta naturaleza.
+
+\section{Comparación entre los dos métodos estudiados}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{EvsI1.png}
+    \caption{Gráfica Error vs Iteración para la primera función}
+    \label{fig:EvsI1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{EvsI2.png}
+    \caption{Gráfica Error vs Iteración para la segunda función}
+    \label{fig:EvsI2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{EvsI3.png}
+    \caption{Gráfica Error vs Iteración para la tercera función}
+    \label{fig:EvsI3}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{EvsI4.png}
+    \caption{Gráfica Error vs Iteración para la cuarta función}
+    \label{fig:EvsI4}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{EvsI5.png}
+    \caption{Gráfica Error vs Iteración para la quinta función}
+    \label{fig:EvsI5}
+\end{figure}
+\end{document}
