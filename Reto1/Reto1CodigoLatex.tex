@@ -1,0 +1,261 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Reto 1: Sistemas no lineales}
+\author{D. R. Ramírez, C. Castrillón, J. M. Torres}
+\date{Marzo de 2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[backend=biber, style=alphabetic, sorting=ynt]{biblatex}
+
+\addbibresource{Reto1.bib}
+
+\begin{document}
+
+\maketitle
+
+\section{Introducción}
+En el presente documento se muestran los resultados obtenidos tras implementar y probar algunos métodos numéricos para sistemas no lineales. Los métodos implementados en código que se analizarán en el documento actual son: el \emph{algoritmo de Brent} y el \emph{método Regula Falsi}. Posteriormente se mostrará como el uso de las funciones de ciertos módulos de Python, como SymPy y ScyPy, pueden facilitar la implementación de lo que se quiere lograr.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm]{PythonSvg}
+    \caption{Logo de Python}
+    \label{fig:PythonSvg}
+\end{figure}
+
+\section{Algoritmo de Brent}
+\subsection{Diagrama de flujo}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{FlujoBrent.png}
+    \caption{Diagrama de flujo Algoritmo de Brent}
+    \label{fig:reflujo}
+\end{figure}
+\subsection{Evaluación para todos los casos}
+En la siguiente figura se pueden observar los parámetros que fueron tomados en cuenta para la solución de la ecuación \(f(x) = x^3-2x^2+\frac{4}{3}x-\frac{8}{27}\) implementando el método de Brent. Se consideraron el número de iteraciones, una tolerancia, el resultado, la comparación del resultado teórico y el experimental (Error relativo) y el tiempo de ejecución. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{CasosBrent.JPG}
+    \caption{Gráfica error Ei y Ei+1}
+    \label{fig:eiei1}
+\end{figure}
+\subsection{Comparación de los casos 1 y 2}
+En la figura tres se observan los resultados para tres tolerancias distintas,\(10^-^6\),\(10^-^8\) y \(10^-^1^1\).Para cumplir con estas tolerancias se gastaron diferentes cantidades de iteraciones y tiempo para llegar a los resultados. Estos resultados se compararon con el valor teórico el cual es \(\frac{2}{3}\) y se obtuvieron errores relativos cada vez mas pequeños. Pero, para obtener un error mas pequeño se tuvieron que gastar muchos mas recursos.
+
+En el caso de la tolerancia igual a \(10^-^1^1\) le tomo al programa del método implementado nada mas y nada menos que 1'186.652 iteraciones y un tiempo aproximado de 990 segundos, lo cual equivale a 16 minutos y medio. Por lo anterior se expresa que esta cantidad de recursos es muy grande comparada a las que se usan con las otras dos tolerancias.
+
+Por otro lado, se cree que aunque con la tolerancia de \(10^-^6\) se utilice una cantidad de tiempo expresada en décimas de segundo y las iteraciones sean casi 23 veces menos que las de la tolerancia \(10^-^8\), el tiempo de ejecución relativamente bueno para obtener un resultado con un Error relativo menor, lo cual es el objetivo, acercarse lo mas posible a la solución.  
+\subsection{Gráficas}
+\subsubsection{Error Ei y Ei+1}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{eiei1.jpeg}
+    \caption{Gráfica error Ei y Ei+1}
+    \label{fig:eiei1}
+\end{figure}
+\subsubsection{Error vs Iteración}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{itvse.jpeg}
+    \caption{Gráfica error vs iteración}
+    \label{fig:itvse}
+\end{figure}
+
+\section{Estimación de raíces por Posición Falsa}
+
+\subsection{Diagrama de flujo y explicación del método}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12.5cm]{DiagramaFlujo.png}
+    \caption{Diagrama de flujo del método de Posición Falsa}
+    \label{fig:DiagramaFlujo}
+\end{figure}
+El método \emph{Regula Falsi} se describe de la siguiente manera: la recta que inicia en \emph{a} y termina en \emph{b}; y pasa por el punto \emph{c} (intersección con el eje \emph{x}), se aproxima a la función (f(\emph{x})) dada. En consecuencia al cambio de tramo —i.e. cambio en el valor de uno de los extremos del intervalo en que se está evaluando la función— que se hace tras cada iteración del algoritmo, la recta cambia su longitud y, de mayor importancia, su pendiente. Por consiguiente, tal punto de intersección (\emph{c}) varía, y su proximidad a la raíz de la función presente en el intervalo, incrementa. Para ilustrar lo que está sucediendo, se observa que la recta se desplaza hasta que el punto \emph{c} se acerca tanto como sea posible (teniendo en cuenta la tolerancia dada) a la solución. El valor de \emph{c} se obtiene mediante despeje al hallar la equivalencia por semejanza de triángulos entre la sección positiva de la recta, y la sección negativa de la misma.
+
+\subsection{Evaluación para todos los casos}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso1TABLA.jpg}
+    \caption{Tabla para el caso 1}
+    \label{fig:TablaRFC1}
+\end{figure}
+La anterior tabla presenta la información correspondiente a la estimación de la raíz para cada iteración, junto al error estimado. En última instancia, la estimación se aproxima a \(1.9702059752\).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso2TABLA.jpg}
+    \caption{Tabla para el caso 2}
+    \label{fig:TablaRFC2}
+\end{figure}
+La anterior tabla presenta la información correspondiente a la estimación de la raíz para cada iteración, junto al error estimado. En última instancia, la estimación se aproxima a \(1.9701991258\).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso3TABLA.jpg}
+    \caption{Tabla para el caso 3}
+    \label{fig:TablaRFC3}
+\end{figure}
+La anterior tabla presenta la información correspondiente a la estimación de la raíz para cada iteración, junto al error estimado. En última instancia, la estimación se aproxima a \(4.371971352\).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso4TABLA.jpg}
+    \caption{Tabla para el caso 4}
+    \label{fig:TablaRFC4}
+\end{figure}
+La anterior tabla presenta la información correspondiente a la estimación de la raíz para cada iteración, junto al error estimado. En última instancia, la estimación se aproxima a \(4.3719715385\).
+
+\subsection{Comparación de los casos 1 y 2}
+Dado que las estimaciones, para cada uno de los casos (i.e. la implementación con Regula Falsi, y la implementación con SciPy y SymPy) se planteó de manera diferente —para Regula Falsi se encontró una expresión f(x), mientras que la implementación con librerías implicó la búsqueda del resultado mediante un sistema de ecuaciones de dos incógnitas—, no es posible compararlas de manera directa.
+
+\subsection{Gráficas}
+Para la curva \(x^2+xy = 10\) (1):
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm]{GraficaC1.png}
+    \caption{Gráfica para la curva #1}
+    \label{fig:GraficaC1}
+\end{figure}
+Para la curva \(y+3xy^2 = 57\) (2):
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm]{GraficaC2.png}
+    \caption{Gráfica para la curva #2}
+    \label{fig:GraficaC2}
+\end{figure}
+Para la función \(f(x) = -3x^3+60x+57-300/x\), correspondiente a la intersección entre las curvas (1) y (2):
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{GraficasInterseccion.png}
+    \caption{Gráficas para la expresión resultante (intersección)}
+    \label{fig:GraficaInterseccion}
+\end{figure}
+
+\subsubsection{Error Ei+1 y Ei}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso1Ei.jpg}
+    \caption{Ei vs. Ei+1 para el caso 1}
+    \label{fig:EiRFC1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso1OC.jpg}
+    \caption{Aproximación vs. Error en i para el caso 1}
+    \label{fig:EiEi+1RFC1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso2Ei.jpg}
+    \caption{Ei vs. Ei+1 para el caso 1}
+    \label{fig:EiRFC2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso2OC.jpg}
+    \caption{Aproximación vs. Error en i para el caso 2}
+    \label{fig:EiEi+1RFC2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso3Ei.jpg}
+    \caption{Ei vs. Ei+1 para el caso 1}
+    \label{fig:EiRFC3}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso3OC.jpg}
+    \caption{Aproximación vs. Error en i para el caso 3}
+    \label{fig:EiEi+1RFC3}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso4Ei.jpg}
+    \caption{Ei vs. Ei+1 para el caso 1}
+    \label{fig:EiRFC4}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso4OC.jpg}
+    \caption{Aproximación vs. Error en i para el caso 4}
+    \label{fig:EiEi+1RFC4}
+\end{figure}
+
+\subsubsection{Error vs. Iteración}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso1ItEr.jpg}
+    \caption{Iteración vs. Error caso 1}
+    \label{fig:TablaRFC1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso2ItEr.jpg}
+    \caption{Iteración vs. Error caso 2}
+    \label{fig:TablaRFC2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso3ItEr.jpg}
+    \caption{Iteración vs. Error caso 3}
+    \label{fig:TablaRFC3}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{Caso4ItEr.jpg}
+    \caption{Iteración vs. Error caso 4}
+    \label{fig:TablaRFC4}
+\end{figure}
+
+\section{Implementación de los métodos usando librerías }
+En este apartado se busca resolver los problemas de las primeras secciones pero mediante el uso de módulos de Python. Los módulos que se utilizaron para resolver los problemas fueron \emph{ScyPy} y \emph{SymPy}.
+
+\subsection{Algoritmo de Brent}
+Para encontrar las raíces del polinomio \(f(x)=x^3-2x^2+\frac{4x}{3}-\frac{8}{27}\) se hace uso de la función \emph{brentq} incluida en el paquete \emph{scypy.optimize}. La función \emph{brentq} encuentra una raíz de una función en un intervalo cerrado usando el método clásico de Brent. De esta manera se encuentra un cero de la función en el intervalo de cambio de signo [a, b]. El método  de Brent es una versión segura del método secante que usa extrapolación cuadrática inversa~\cite{SciPy}. El método de Brent utiliza un polinomio de interpolación de Lagrange de grado 2. Brent afirma que este método convergerá siempre y cuando los valores de la función sean computables dentro de una región dada que contenga una raíz. Dados tres puntos x1, x2 y x3, el método de Brent ajusta x como una función cuadrática de \emph{y} y luego usa la fórmula de interpolación~\cite{Wolfram}.\\\\
+A continuación se muestran todos los parámetros que la función puede recibir:
+\begin{itemize}
+    \item \textbf{f}: \emph{función elemental}\\
+    Función de Python que devuelve un número. La función debe ser continua y debe tener signos opuestos.
+    \item \textbf{a}: \emph{escalar}\\
+    El limite inferior del intervalo cerrado.
+    \item \textbf{b}: \emph{escalar}\\
+    El limite superior del intervalo cerrado.
+    \item \textbf{xtol} (parámetro opcional): \emph{numero}\\
+    Tolerancia admitida. La raíz calculada x0 satisfará np.allclose (x, x0, atol = xtol, rtol = rtol), donde x es la raíz exacta. El parámetro no debe ser negativo.
+    \item \textbf{rtol} (parámetro opcional): \emph{numero}\\
+    Tolerancia admitida. La raíz calculada x0 satisfará np.allclose (x, x0, atol = xtol, rtol = rtol), donde x es la raíz exacta. El parámetro no puede ser menor que su valor predeterminado de 4 * np.finfo (float) .eps.
+    \item \textbf{maxiter} (parámetro opcional): \emph{entero}\\
+    El numero máximo de iteraciones. Si no se logra la convergencia en iteraciones máximas, se genera un error. Este valor debe ser siempre superior o igual a 0.
+    \item \textbf{args} (parámetro opcional): \emph{tupla}\\
+    Una tupla que contiene argumentos adicionales para la función f.
+    \item \textbf{full\_output} (parámetro opcional): \emph{booleano}\\
+    Si full\_output es False, se devuelve la raíz. Si full\_output es True, el valor de retorno es (x, r), donde x es la raíz y r es un objeto  de tipo RootResults.
+    \item \textbf{disp} (parámetro opcional): \emph{booleano}\\
+    Si disp es True, se genera un RuntimeError si el algoritmo no convergió. De lo contrario, el estado de convergencia se registra en cualquier objeto de retorno de RootResults.
+\end{itemize}
+A continuación se muestra el resultado del primer punto utilizando los módulos descritos previamente:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6.25cm]{sol1.png}
+    \caption{Solución punto 1 con \emph{SciPy}}
+    \label{fig:sol1}
+\end{figure}
+
+\subsection{Aproximación a la raíz por posición falsa}
+Para hallar la intersección entre las curvas \(x^2+xy=10\) y \(y+3xy^2=57\) se hace uso de la función \emph{solve} incluida en el paquete \emph{sympy.solvers.solvers}. La función \emph{solve} resuelve ecuaciones y sistemas de ecuaciones algebraicas~\cite{SymPy}. Para hacer uso de esta función, la expresión que se pasa como parámetro debe estar organizada de tal forma que solo se pase el lado de la ecuación que tenga todos los términos, por ende no se incluye ni la igualdad ni el termino nulo del otro lado de la ecuación.\\\\
+A continuación se muestran todos los parámetros que la función puede recibir:
+\begin{itemize}
+    \item \textbf{f}: \emph{expresión(es)}\\
+    Puede ser una sola expresión o varias expresiones (una igualdad, una expresión relacional, un sistema de ecuaciones, etc.).
+    \item \textbf{símbolo(s)}: \emph{caracter(es)}\\
+    Las incógnitas o variables para las cuales se debe resolver la expresión pasada por parámetro.
+\end{itemize}
+El resto de parámetros que se le pueden pasar a la función \emph{solve} son parámetros opcionales y no aportan nada relevante para este documento, si desea saber mas acerca de ellos puede visitar la documentación que aparece en las referencias.\\\\
+A continuación se muestra el resultado del segundo punto utilizando los módulos descritos previamente:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm]{sol2.png}
+    \caption{Solución punto 2 con \emph{SymPy}}
+    \label{fig:sol2}
+\end{figure}
+\printbibliography
+\end{document}
